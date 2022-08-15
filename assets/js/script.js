@@ -52,7 +52,7 @@ function runGame(gameType) {
 
     } else if (gameType === "division") {
 
-        displayDivisionQuestion(num1, num2);
+        displayDivisionQuestion((num1*num2), num2);
 
     } else {
         alert(`Unknown game type: ${gameType}`);
