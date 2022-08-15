@@ -1,9 +1,7 @@
 // Wait for the DOM to finish loading before running the game
 // Get the button elements and add event listeners to them
 document.addEventListener("DOMContentLoaded", function() {
-    let buttons = this.getElementsByTagName("button");
-
-    // for (let i = 0; i < buttons.length; i++) <-- Old Syntax
+    let buttons = document.getElementsByTagName("button");
 
     for (let button of buttons) {
         button.addEventListener("click", function() {
@@ -13,11 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
             }
-
-            runGame("addition");
-        })
+        });
     }
-})
+    
+    runGame("addition");
+
+});
 
 
 /**
@@ -31,7 +30,13 @@ function runGame(gameType) {
     let num2 = Math.floor(Math.random() * 25) + 1;
 
     if (gameType === "addition") {
+
         displayAdditionQuestion(num1, num2);
+
+    } else if (gameType === "multiply") {
+
+        displayMultiplyQuestion(num1, num2);
+
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -72,10 +77,18 @@ function calculateCorrectAnswer() {
     let operator = document.getElementById('operator').innerText;
 
     if (operator === "+") {
-        return [operand1 + operand2, "addition"]
+
+        return [operand1 + operand2, "addition"];
+
+    } else if (operator === "x") {
+
+        return [operand1 * operand2, "multiply"];
+
     } else {
+
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
+
     }
 
 }
@@ -115,8 +128,12 @@ function displaySubtractQuestion() {
 }
 
 
-function displayMultiplyQuestion() {
-    
+function displayMultiplyQuestion(operand1, operand2) {
+
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
+
 }
 
 
